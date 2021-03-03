@@ -289,15 +289,17 @@ class Secretaria(models.Model):
 class Computadores(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
 
-    aquisição_equipamento = MultiSelectField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 20, max_choices=5, null=True, blank=True)
-    patrimonio_pc = models.CharField(_("PATRIMÔNIO"), max_length=50, null=True, blank=True)
-    usuario = models.CharField(_("USUÁRIO"), max_length=60, null=True, blank=True)
-    configuracao_geral = MultiSelectField(_("CONFIGURAÇÃO GERAL"),choices= CONFIGURACAO, max_length= 20, max_choices=5, null=True, blank=True)
-    impressora_scanner = MultiSelectField(_("IMPRESSORA/SCANNER"), choices= IMPRESSORA, max_length= 20, max_choices=5, null=True, blank=True)
-    patrimonio_impressora = models.CharField(_("PATRIMÔNIO"), max_length=50, null=True, blank=True)
-    perifericos = MultiSelectField(_("PERIFERICOS"), choices= PERIFERICOS, max_length= 20, max_choices=5, null=True, blank=True)
-    softwares = MultiSelectField(_("SOFTWARE"),choices= SOFTWARES, max_length= 60, max_choices=5, null=True, blank=True)
-    observacao = models.TextField("Observação", max_length=300)
+    aquisição_equipamento = MultiSelectField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 200, max_choices=1, null=True, blank=True)
+    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=200, null=True, blank=True)
+    usuario = models.CharField(_("USUÁRIO"), max_length=200, null=True, blank=True)
+    configuracao_geral = MultiSelectField(_("CONFIGURAÇÃO GERAL"),choices= CONFIGURACAO, max_length= 200, max_choices=10, null=True, blank=True)
+    impressora_scanner = MultiSelectField(_("IMPRESSORA/SCANNER"), choices= IMPRESSORA, max_length= 200, max_choices=10, null=True, blank=True)
+    patrimonio_impressora = models.CharField(_("PATRIMÔNIO IMPRESSORA"), max_length=50, null=True, blank=True)
+    perifericos = MultiSelectField(_("PERIFERICOS"), choices= PERIFERICOS, max_length= 50, max_choices=20, null=True, blank=True)
+    patrimonio_nobreak = models.CharField(_("PATRIMÔNIO NOBREAK"), max_length=50, null=True, blank=True)
+    patrimonio_monitor = models.CharField(_("PATRIMÔNIO MONITOR"), max_length=50, null=True, blank=True)
+    softwares = MultiSelectField(_("SOFTWARE"),choices= SOFTWARES, max_length= 200, max_choices=15, null=True, blank=True)
+    observacao = models.TextField("OBSERVAÇÃO", max_length=300, null=True, blank=True)
 
     
 
