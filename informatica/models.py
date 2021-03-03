@@ -129,7 +129,8 @@ CONFIGURACAO = (
         ("12 GB", "12 GB"),
         ("32 GB", "32 GB"),
     )),
-        ("PLACA DE VÍDEO",(
+
+    ("PLACA DE VÍDEO",(
         ("1 GB", "1 GB"),
         ("2 GB", "2 GB"),
         ("4 GB", "4 GB"),
@@ -206,12 +207,12 @@ SOFTWARES = (
 
     ("SOFTWARES GRATUITOS",(
         ("7zip", "7zip"),
-        ("Adobe Reader DC ", "Adobe Reader DC "),
-        ("Bizagi Modeler Free ", "Bizagi Modeler Free "),
+        ("Adobe Reader DC ", "Adobe Reader DC"),
+        ("Bizagi Modeler Free ", "Bizagi Modeler Free"),
         ("Chrome", "Chrome"),
-        ("CutePDF Write Free ", "CutePDF Write Free"),
+        ("CutePDF Write Free", "CutePDF Write Free"),
         ("doPDF", "doPDF"),
-        ("Firefox ", "Firefox "),
+        ("Firefox", "Firefox"),
         ("Foxit Reader 7", "Foxit Reader 7"),
         ("Google Earth", "Google Earth"),
         ("Internet Explorer", "Internet Explorer"),
@@ -221,7 +222,7 @@ SOFTWARES = (
         ("Microsoft Power BI Desktop", "Microsoft Power BI Desktop"),
         ("Modulo de segurança Bancário", "Modulo de segurança Bancário"),
         ("QGIS", "QGIS"),
-        ("VLC – Player", "VLC – Player"),
+        ("VLC–Player", "VLC–Player"),
         ("Winrar", "Winrar"),
     )),
 
@@ -235,7 +236,9 @@ SOFTWARES = (
        ("Microsoft Windows Office 2007 Professional", "Microsoft Windows Office 2007 Professional"),
        ("Microsoft Windows Office 2010 Professional", "Microsoft Windows Office 2010 Professional"),
        ("Microsoft Windows Office 2013 Professional", "Microsoft Windows Office 2013 Professional"),
+       ("Microsoft Windows Office 2016 Professional", "Microsoft Windows Office 2016 Professional"),
     )),
+
     ("SOFTWARES ADMINISTRATIVOS",(
        ("AdmCGM", "AdmCGM"),
        ("AdmConvenio", "AdmConvenio"),
@@ -255,9 +258,9 @@ SOFTWARES = (
        ("Processo Administrativo","Processo Administrativo"),
        ("Projeto Base","Projeto Base"),
        ("Prorural","Prorural"),
-       ("SIM - Serviço de Inspeção Municipal","SIM - Serviço de Inspeção Municipal"),
-       ("SISGEM - Escola de Música","SISGEM - Escola de Música"),
-       ("SISPPAR - Sistema de Parcerias","SISPPAR - Sistema de Parcerias"),
+       ("SIM-Serviço de Inspeção Municipal","SIM-Serviço de Inspeção Municipal"),
+       ("SISGEM-Escola de Música","SISGEM-Escola de Música"),
+       ("SISPPAR-Sistema de Parcerias","SISPPAR-Sistema de Parcerias"),
        ("SisBOAT ","SisBOAT "),
        ("SisMulher ","SisMulher"),
        ("SisProtocolo","SisProtocolo"),
@@ -302,6 +305,9 @@ class Computadores(models.Model):
     observacao = models.TextField("OBSERVAÇÃO", max_length=300, null=True, blank=True)
 
     
+    def __str__(self):
+        return self.patrimonio_pc
+    objects = models.Manager()
 
     class Meta:
         verbose_name = _("Computador")
