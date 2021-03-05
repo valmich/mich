@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-import re
 from multiselectfield import MultiSelectField
+
 
 
 SECRETARIA_CHOICES = (
@@ -31,7 +31,7 @@ SECRETARIA_CHOICES = (
     
     ('COODENADORIAS',(
         ("Recursos Humanos", "Recursos Humanos"),
-        ("Coordenadoria de Terras", "Coordenadoria de Terras"),
+        ("Coord. de Terras", "Coord. de Terras"),
         ("Tec. Informação e Tecnologia", "Tec. Informação e Tecnologia"),
         ("Defesa Civil", "Defesa Civil"),
         ("Polo Moveleiro", "Polo Moveleiro"),
@@ -50,47 +50,13 @@ SECRETARIA_CHOICES = (
     )),
 )
 
-PERIFERICOS = (
-
-    ('NOBREAK',(
-        ("1000VA", "1000VA"),
-        ("1200VA", "1200VA"),
-        ("1300VA", "1300VA"),
-        ("1400VA", "1400VA"),
-        ("1600VA", "1600VA"),
-        ("1800VA", "1800VA"),
-        ("2400VA", "2400VA"),
-        ("400VA", "400VA"),
-        ("500VA", "500VA"),
-        ("600VA", "600VA"),
-        ("700VA", "700VA"),
-        ("800VA", "800VA"),
-    )),
-
-    ('MONITORES',(
-        ("15.6 Polegadas", "15.6 Polegadas"),
-        ("17 Polegadas", "17 Polegadas"),
-        ("18.5 Polegadas", "18.5 Polegadas"),
-        ("19 Polegadas", "19 Polegadas"),
-        ("20 Polegadas", "20 Polegadas"),
-        ("21.5 Polegadas", "21.5 Polegadas"),
-        ("24 Polegadas" ,"24 Polegadas"),
-        ("25 Polegadass" ,"25 Polegadas"),
-        ("27 Polegadas" ,"27 Polegadas"),
-        ("28 Polegadas" ,"28 Polegadas"),
-        ("31,5 Polegadas" ,"31,5 Polegadas"),
-    )),
-)
-
-
 AQUISICAO = (
         ("Patrimônio", "Patrimônio"),
         ("Contrato", "Contrato"),
         ("Sem Patrimônio", "Sem Patrimônio"),
 )
 
-CONFIGURACAO = (
-    ("PROCESSADOR",(
+CONFIGURACAO_PROCESSADOR = (
         ("AMD A", "AMD A"),
         ("AMD Athlon/Sempron", "AMD Athlon/Sempron"),
         ("AMD FX", "AMD FX"),
@@ -104,9 +70,9 @@ CONFIGURACAO = (
         ("INTEL Core i3", "INTEL Core i3"),
         ("INTEL Core i5", "INTEL Core i5"),
         ("INTEL Core i7", "INTEL Core i7"),
-    )),
+    )
 
-    ("HDD/SSD",(
+CONFIGURACAO_HDD_SSD = (
         ("80 GB","80 GB"),
         ("100 GB","100 GB"),
         ("120 GB","120 GB"),
@@ -118,41 +84,45 @@ CONFIGURACAO = (
         ("2 TB","2 TB"),
         ("3 TB","3 TB"),
         ("4 TB","4 TB"),
-    )),
+    )
 
-    ("MEMÓRIA RAM",(
+CONFIGURACAO_MEMORIA_RAM =(
         ("1 GB", "1 GB"),
         ("2 GB", "2 GB"),
+        ("3 GB", "3 GB"),
         ("4 GB", "4 GB"),
         ("6 GB", "6 GB"),
         ("8 GB", "8 GB"),
         ("12 GB", "12 GB"),
         ("32 GB", "32 GB"),
-    )),
+    )
 
-    ("PLACA DE VÍDEO",(
+CONFIGURACAO_PLACA_GRAFICA =(
         ("1 GB", "1 GB"),
         ("2 GB", "2 GB"),
         ("4 GB", "4 GB"),
         ("6 GB", "6 GB"),
         ("8 GB", "8 GB"),
-    )),
-)
+    )
 
-IMPRESSORA = (
-    ("AQUISIÇÃO",(
+IMPRESSORA_AQUISICAO = (
         ("Patrimônio", "Patrimônio"),
         ("Contrato", "Contrato"),
         ("Sem Patrimônio", "Sem Patrimônio"),
         ("Não Possui", "Não Possui"),
-    )),
+    )
 
-    ("MULTIFUNCIONAIS",(
-        ("Com Fax", "Com Fax"),
-        ("Sem Fax", "Sem Fax"),
-    )),
+# IMPRESSORA_MULTIFUNCIONAIS_FAX = (
+#         ("Com Fax", "Com Fax"),
+#         ("Sem Fax", "Sem Fax"),
+#     )
 
-    ("MARCAS",(
+# IMPRESSORA_MULTIFUNCIONAIS_SCANNER = (
+#         ("Com Scanner", "Com Scanner"),
+#         ("Sem Scanner", "Sem Scanner"),
+#     )
+
+IMPRESSORA_MARCAS= (
         ("Brother", "Brother"),
         ("Ricoh", "Ricoh"),
         ("Canon", "Canon"),
@@ -166,9 +136,9 @@ IMPRESSORA = (
         ("MITSUSHIBA", "MITSUSHIBA"),
         ("Maxprint", "Maxprint"),
         ("PCYes", "PCYes"),
-    )),
+    )
 
-    ("TIPO",(
+IMPRESSORA_TIPO =(
         ("Jato de Tinta", "Jato de Tinta"),
         ("Laser", "Laser"),
         ("Pagewide", "Pagewide"),
@@ -177,15 +147,43 @@ IMPRESSORA = (
         ("Matricial", "Matricial"),
         ("Portátil", "Portátil"),
         ("Fotográfica", "Fotográfica"),
-    )),
+    )
 
-    ("IMPRESSÃO",(
+IMPRESSORA_IMPRESSAO=(
         ("Monocromático", "Monocromático"),
         ("Colorido", "Colorido"),
-    )),
-)
+    )
 
-SOFTWARES = (
+NOBREAK=(
+        ("1000VA", "1000VA"),
+        ("1200VA", "1200VA"),
+        ("1300VA", "1300VA"),
+        ("1400VA", "1400VA"),
+        ("1600VA", "1600VA"),
+        ("1800VA", "1800VA"),
+        ("2400VA", "2400VA"),
+        ("400VA", "400VA"),
+        ("500VA", "500VA"),
+        ("600VA", "600VA"),
+        ("700VA", "700VA"),
+        ("800VA", "800VA"),
+    )
+
+MONITORES=(
+        ("15.6 Polegadas", "15.6 Polegadas"),
+        ("17 Polegadas", "17 Polegadas"),
+        ("18.5 Polegadas", "18.5 Polegadas"),
+        ("19 Polegadas", "19 Polegadas"),
+        ("20 Polegadas", "20 Polegadas"),
+        ("21.5 Polegadas", "21.5 Polegadas"),
+        ("24 Polegadas" ,"24 Polegadas"),
+        ("25 Polegadass" ,"25 Polegadas"),
+        ("27 Polegadas" ,"27 Polegadas"),
+        ("28 Polegadas" ,"28 Polegadas"),
+        ("31,5 Polegadas" ,"31,5 Polegadas"),
+    )
+
+SOFTWARES_OS = (
     ("SISTEMA OPERACIONAL TIPO WINDOWS",(
         ("Windows 7", "Windows 7"),
         ("Windows 8", "Windows 8"),
@@ -204,12 +202,12 @@ SOFTWARES = (
     ("OUTRO",(
         ("DUAL BOOT", "DUAL BOOT"),
     )),
-
-    ("SOFTWARES GRATUITOS",(
+)
+SOFTWARES_GRATUITOS=(
         ("7zip", "7zip"),
-        ("Adobe Reader DC ", "Adobe Reader DC"),
         ("Bizagi Modeler Free ", "Bizagi Modeler Free"),
         ("Chrome", "Chrome"),
+        ("Adobe Reader DC ", "Adobe Reader DC"),
         ("CutePDF Write Free", "CutePDF Write Free"),
         ("doPDF", "doPDF"),
         ("Firefox", "Firefox"),
@@ -224,9 +222,9 @@ SOFTWARES = (
         ("QGIS", "QGIS"),
         ("VLC–Player", "VLC–Player"),
         ("Winrar", "Winrar"),
-    )),
+    )
 
-    ("SOFTWARES LICENCIADOS",(
+SOFTWARES_LICENCIADOS=(
        ("Adobe Acrobat DC", "Adobe Acrobat DC"),
        ("Adobe Creative Cloud", "Adobe Creative Cloud"),
        ("ArcGIS", "ArcGIS"),
@@ -237,9 +235,9 @@ SOFTWARES = (
        ("Microsoft Windows Office 2010 Professional", "Microsoft Windows Office 2010 Professional"),
        ("Microsoft Windows Office 2013 Professional", "Microsoft Windows Office 2013 Professional"),
        ("Microsoft Windows Office 2016 Professional", "Microsoft Windows Office 2016 Professional"),
-    )),
+    )
 
-    ("SOFTWARES ADMINISTRATIVOS",(
+SOFTWARES_ADMINISTRATIVOS =(
        ("AdmCGM", "AdmCGM"),
        ("AdmConvenio", "AdmConvenio"),
        ("AdmPFiscal", "AdmPFiscal"),
@@ -268,7 +266,6 @@ SOFTWARES = (
        ("Transparência RH","Transparência RH"),
        ("WebVISA ","WebVISA"),
 
-    )),
 )
 
 
@@ -289,26 +286,85 @@ class Secretaria(models.Model):
     def save(self, *args, **kwargs):
         return super(Secretaria, self).save(*args, **kwargs)
 
-class Computadores(models.Model):
+class Computador(models.Model):
+    cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+    
+    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
+    
+    processador = models.CharField(_("PROCESSADOR"), choices= CONFIGURACAO_PROCESSADOR, max_length= 50, null=True, blank=True)
+    hdd_ssd = models.CharField(_("HDD/SSD"), choices= CONFIGURACAO_HDD_SSD, max_length= 50, null=True, blank=True)
+    memoria_ram = models.CharField(_("MEMORIA RAM"), choices= CONFIGURACAO_MEMORIA_RAM, max_length= 50, null=True, blank=True)
+    placa_grafica = models.CharField(_("PLACA GRÁFICA"), choices= CONFIGURACAO_PLACA_GRAFICA, max_length= 50, null=True, blank=True)
+
+class Monitor(models.Model):
+    cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+    
+    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
+
+    tamanho = models.CharField(_("TAMANHO"),choices= MONITORES, max_length= 50, null=True, blank=True)
+
+class Impressora(models.Model):
+    cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+    
+    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = IMPRESSORA_AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null = True, blank=True)
+
+    impressora_multi_fax = models.BooleanField(_("POSSUI FAX?"), max_length= 50 , blank=True)
+    impressora_multi_scanner = models.BooleanField(_("POSSUI SCANNER?"), max_length= 50, blank=True)
+    impressora_marca = models.CharField(_("MARCA"),choices = IMPRESSORA_MARCAS, max_length= 50, null=True, blank=True)
+    impressora_tipo = models.CharField(_("TIPO"),choices = IMPRESSORA_TIPO, max_length= 50, null=True, blank=True)
+    impressora_impressao = models.CharField(_("IMPRESSÃO"),choices = IMPRESSORA_IMPRESSAO, max_length= 50, null=True, blank=True)
+
+class Nobreak(models.Model):
+    cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+    
+    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null = True, blank=True)
+
+    nobreak = models.CharField(_("TENSÃO"),choices = NOBREAK, max_length= 50, null=True, blank=True)
+
+class SoftwareOs(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
 
-    aquisição_equipamento = MultiSelectField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 200, max_choices=1, null=True, blank=True)
-    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=200, null=True, blank=True)
-    usuario = models.CharField(_("USUÁRIO"), max_length=200, null=True, blank=True)
-    configuracao_geral = MultiSelectField(_("CONFIGURAÇÃO GERAL"),choices= CONFIGURACAO, max_length= 200, max_choices=10, null=True, blank=True)
-    impressora_scanner = MultiSelectField(_("IMPRESSORA/SCANNER"), choices= IMPRESSORA, max_length= 200, max_choices=10, null=True, blank=True)
-    patrimonio_impressora = models.CharField(_("PATRIMÔNIO IMPRESSORA"), max_length=50, null=True, blank=True)
-    perifericos = MultiSelectField(_("PERIFERICOS"), choices= PERIFERICOS, max_length= 50, max_choices=20, null=True, blank=True)
-    patrimonio_nobreak = models.CharField(_("PATRIMÔNIO NOBREAK"), max_length=50, null=True, blank=True)
-    patrimonio_monitor = models.CharField(_("PATRIMÔNIO MONITOR"), max_length=50, null=True, blank=True)
-    softwares = MultiSelectField(_("SOFTWARE"),choices= SOFTWARES, max_length= 200, max_choices=15, null=True, blank=True)
-    observacao = models.TextField("OBSERVAÇÃO", max_length=300, null=True, blank=True)
+    sistema_operacional = MultiSelectField(_("SISTEMA OPERACIONAL"), choices= SOFTWARES_OS, max_length= 50, max_choices=3, null=True, blank=True)
+    
+
+class SoftwareOutro(models.Model):
+    cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+
+    software_gratuitos = MultiSelectField(_("SOFTWARE GRATUITOS"),choices = SOFTWARES_GRATUITOS, max_choices=10, max_length= 200, null=True, blank=True)
+    software_licenciados = MultiSelectField(_("SOFTWARES LICENCIADOS"),choices = SOFTWARES_LICENCIADOS, max_choices=10, max_length= 200, null=True, blank=True)
+    licenca = models.CharField(_("Nº DA LICENÇA"), max_length=50, null = True, blank=True)
+    software_adminstrativos = MultiSelectField(_("SOFTWARES ADMINISTRATIVOS"),choices = SOFTWARES_ADMINISTRATIVOS, max_choices=10, max_length= 200, null=True, blank=True)
+
+
+
+
+
+
+
+
+# class Computadores(models.Model):
+#     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
+
+#     aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
+#     patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
+#     usuario = models.CharField(_("USUÁRIO"), max_length=200, null=True, blank=True)
+#     configuracao_precessador = models.CharField(_("CONFIGURAÇÃO GERAL"),choices= CONFIGURACAO, max_length= 200, null=True, blank=True)
+#     impressora_scanner = MultiSelectField(_("IMPRESSORA/SCANNER"), choices= IMPRESSORA, max_length= 200, max_choices=10, null=True, blank=True)
+#     patrimonio_impressora = models.CharField(_("PATRIMÔNIO IMPRESSORA"), max_length=50, null=True, blank=True)
+#     perifericos = MultiSelectField(_("PERIFERICOS"), choices= PERIFERICOS, max_length= 50, max_choices=20, null=True, blank=True)
+#     patrimonio_nobreak = models.CharField(_("PATRIMÔNIO NOBREAK"), max_length=50, null=True, blank=True)
+#     patrimonio_monitor = models.CharField(_("PATRIMÔNIO MONITOR"), max_length=50, null=True, blank=True)
+#     softwares = MultiSelectField(_("SOFTWARE"),choices= SOFTWARES, max_length= 200, max_choices=15, null=True, blank=True)
+#     observacao = models.TextField("OBSERVAÇÃO", max_length=300, null=True, blank=True)
 
     
-    def __str__(self):
-        return self.patrimonio_pc
-    objects = models.Manager()
+#     def __str__(self):
+#         return self.patrimonio_pc
 
-    class Meta:
-        verbose_name = _("Computador")
-        verbose_name_plural = _("Computadores")
+#     class Meta:
+#         verbose_name = _("Computador")
+#         verbose_name_plural = _("Computadores")
