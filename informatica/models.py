@@ -94,22 +94,22 @@ CONFIGURACAO_MEMORIA_RAM =(
         ("6 GB", "6 GB"),
         ("8 GB", "8 GB"),
         ("12 GB", "12 GB"),
+        ("16 GB", "16 GB"),
         ("32 GB", "32 GB"),
     )
 
 CONFIGURACAO_PLACA_GRAFICA =(
-        ("1 GB", "1 GB"),
-        ("2 GB", "2 GB"),
-        ("4 GB", "4 GB"),
-        ("6 GB", "6 GB"),
-        ("8 GB", "8 GB"),
+        ("Classe A", "Classe A"),
+        ("Classe B", "Classe B"),
+        ("Classe C", "Classe C"),
+        ("Não", "Não"),
     )
 
 IMPRESSORA_AQUISICAO = (
         ("Patrimônio", "Patrimônio"),
         ("Contrato", "Contrato"),
         ("Sem Patrimônio", "Sem Patrimônio"),
-        ("Não Possui", "Não Possui"),
+
     )
 
 # IMPRESSORA_MULTIFUNCIONAIS_FAX = (
@@ -155,6 +155,11 @@ IMPRESSORA_IMPRESSAO=(
     )
 
 NOBREAK=(
+        ("400VA", "400VA"),
+        ("500VA", "500VA"),
+        ("600VA", "600VA"),
+        ("700VA", "700VA"),
+        ("800VA", "800VA"),
         ("1000VA", "1000VA"),
         ("1200VA", "1200VA"),
         ("1300VA", "1300VA"),
@@ -162,14 +167,11 @@ NOBREAK=(
         ("1600VA", "1600VA"),
         ("1800VA", "1800VA"),
         ("2400VA", "2400VA"),
-        ("400VA", "400VA"),
-        ("500VA", "500VA"),
-        ("600VA", "600VA"),
-        ("700VA", "700VA"),
-        ("800VA", "800VA"),
+
     )
 
 MONITORES=(
+        ("14 Polegadas", "14 Polegadas"),
         ("15.6 Polegadas", "15.6 Polegadas"),
         ("17 Polegadas", "17 Polegadas"),
         ("18.5 Polegadas", "18.5 Polegadas"),
@@ -274,7 +276,7 @@ class Secretaria(models.Model):
     secretaria = models.CharField('SECRETARIA', max_length= 50, choices=SECRETARIA_CHOICES, null=True, blank=True)
     departamento = models.CharField('DEPARTAMENTO', max_length= 60, null=True, blank=True)
     endereco = models.CharField('ENDEREÇO', max_length= 60, null=True, blank=True)
-    responsalvel= models.CharField('RESPONSÁVEL', max_length= 60, null=True, blank=True)
+    responsavel= models.CharField('RESPONSÁVEL', max_length= 60, null=True, blank=True)
 
     class Meta:
         verbose_name = _("Secretaria")
@@ -288,8 +290,8 @@ class Secretaria(models.Model):
 
 class Computador(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
-    
-    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
+
+    aquisicao_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
     patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
     
     processador = models.CharField(_("PROCESSADOR"), choices= CONFIGURACAO_PROCESSADOR, max_length= 50, null=True, blank=True)
@@ -297,19 +299,27 @@ class Computador(models.Model):
     memoria_ram = models.CharField(_("MEMORIA RAM"), choices= CONFIGURACAO_MEMORIA_RAM, max_length= 50, null=True, blank=True)
     placa_grafica = models.CharField(_("PLACA GRÁFICA"), choices= CONFIGURACAO_PLACA_GRAFICA, max_length= 50, null=True, blank=True)
 
+    class Meta:
+        verbose_name = _("Computador")
+        verbose_name_plural = _("Computadores")
+
 class Monitor(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
     
-    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
-    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
+    aquisicao_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_monitor = models.CharField(_("PATRIMÔNIO MONITOR"), max_length=50, null=True, blank=True)
 
     tamanho = models.CharField(_("TAMANHO"),choices= MONITORES, max_length= 50, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Monitor")
+        verbose_name_plural = _("Monitores")
 
 class Impressora(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
     
-    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = IMPRESSORA_AQUISICAO, max_length= 50, null=True, blank=True)
-    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null = True, blank=True)
+    aquisicao_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = IMPRESSORA_AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_impressora = models.CharField(_("PATRIMÔNIO IMPRESSORA"), max_length=50, null = True, blank=True)
 
     impressora_multi_fax = models.BooleanField(_("POSSUI FAX?"), max_length= 50 , blank=True)
     impressora_multi_scanner = models.BooleanField(_("POSSUI SCANNER?"), max_length= 50, blank=True)
@@ -317,54 +327,40 @@ class Impressora(models.Model):
     impressora_tipo = models.CharField(_("TIPO"),choices = IMPRESSORA_TIPO, max_length= 50, null=True, blank=True)
     impressora_impressao = models.CharField(_("IMPRESSÃO"),choices = IMPRESSORA_IMPRESSAO, max_length= 50, null=True, blank=True)
 
+    class Meta:
+        verbose_name = _("Impressora")
+        verbose_name_plural = _("Impressoras")
+
 class Nobreak(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
     
-    aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = AQUISICAO, max_length= 50, null=True, blank=True)
-    patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null = True, blank=True)
+    aquisicao_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices = AQUISICAO, max_length= 50, null=True, blank=True)
+    patrimonio_nobreak = models.CharField(_("PATRIMÔNIO NOBREAK"), max_length=50, null = True, blank=True)
 
     nobreak = models.CharField(_("TENSÃO"),choices = NOBREAK, max_length= 50, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Nobreak")
+        verbose_name_plural = _("Nobreaks")
 
 class SoftwareOs(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
 
     sistema_operacional = MultiSelectField(_("SISTEMA OPERACIONAL"), choices= SOFTWARES_OS, max_length= 50, max_choices=3, null=True, blank=True)
     
+    class Meta:
+        verbose_name = _("Sistema Operacional")
+        verbose_name_plural = _("Sistemas Operacionais")
 
 class SoftwareOutro(models.Model):
     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
 
-    software_gratuitos = MultiSelectField(_("SOFTWARE GRATUITOS"),choices = SOFTWARES_GRATUITOS, max_choices=10, max_length= 200, null=True, blank=True)
-    software_licenciados = MultiSelectField(_("SOFTWARES LICENCIADOS"),choices = SOFTWARES_LICENCIADOS, max_choices=10, max_length= 200, null=True, blank=True)
+    software_gratuito = MultiSelectField(_("SOFTWARE GRATUITOS"),choices = SOFTWARES_GRATUITOS, max_choices=20, max_length= 200, null=True, blank=True)
+    software_licenciado = MultiSelectField(_("SOFTWARES LICENCIADOS"),choices = SOFTWARES_LICENCIADOS, max_choices=10, max_length= 200, null=True, blank=True)
     licenca = models.CharField(_("Nº DA LICENÇA"), max_length=50, null = True, blank=True)
-    software_adminstrativos = MultiSelectField(_("SOFTWARES ADMINISTRATIVOS"),choices = SOFTWARES_ADMINISTRATIVOS, max_choices=10, max_length= 200, null=True, blank=True)
+    software_adminstrativo = MultiSelectField(_("SOFTWARES ADMINISTRATIVOS"),choices = SOFTWARES_ADMINISTRATIVOS, max_choices=30, max_length= 200, null=True, blank=True)
 
+    class Meta:
+        verbose_name = _("Outro Software")
+        verbose_name_plural = _("Outros Softwares")
 
-
-
-
-
-
-
-# class Computadores(models.Model):
-#     cadastro = models.ForeignKey(Secretaria, on_delete= models.CASCADE, null=True)
-
-#     aquisição_equipamento = models.CharField(_("TIPO DE AQUISIÇÃO"),choices= AQUISICAO, max_length= 50, null=True, blank=True)
-#     patrimonio_pc = models.CharField(_("PATRIMÔNIO PC"), max_length=50, null=True, blank=True)
-#     usuario = models.CharField(_("USUÁRIO"), max_length=200, null=True, blank=True)
-#     configuracao_precessador = models.CharField(_("CONFIGURAÇÃO GERAL"),choices= CONFIGURACAO, max_length= 200, null=True, blank=True)
-#     impressora_scanner = MultiSelectField(_("IMPRESSORA/SCANNER"), choices= IMPRESSORA, max_length= 200, max_choices=10, null=True, blank=True)
-#     patrimonio_impressora = models.CharField(_("PATRIMÔNIO IMPRESSORA"), max_length=50, null=True, blank=True)
-#     perifericos = MultiSelectField(_("PERIFERICOS"), choices= PERIFERICOS, max_length= 50, max_choices=20, null=True, blank=True)
-#     patrimonio_nobreak = models.CharField(_("PATRIMÔNIO NOBREAK"), max_length=50, null=True, blank=True)
-#     patrimonio_monitor = models.CharField(_("PATRIMÔNIO MONITOR"), max_length=50, null=True, blank=True)
-#     softwares = MultiSelectField(_("SOFTWARE"),choices= SOFTWARES, max_length= 200, max_choices=15, null=True, blank=True)
-#     observacao = models.TextField("OBSERVAÇÃO", max_length=300, null=True, blank=True)
-
-    
-#     def __str__(self):
-#         return self.patrimonio_pc
-
-#     class Meta:
-#         verbose_name = _("Computador")
-#         verbose_name_plural = _("Computadores")

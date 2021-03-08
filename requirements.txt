@@ -1,10 +1,11 @@
 asgiref==3.3.1
 defusedxml==0.6.0
 diff-match-patch==20200713
-Django==3
+Django==3.0.0
 django-import-export==2.5.0
 django-multiselectfield==0.1.12
 django-object-actions==3.0.1
+django-crispy-forms
 et-xmlfile==1.0.1
 jdcal==1.4.1
 MarkupPy==1.14

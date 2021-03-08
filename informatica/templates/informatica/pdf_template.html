@@ -1,0 +1,131 @@
+
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    th, td {
+      padding: 3px;
+      text-align: left;  
+
+    }
+    body {
+      height:1800px; 
+      width:660px;
+      margin: 0 auto;
+  }
+  </style>
+  </head>
+<body>
+  <header>
+    <div style=text-align:center>   
+        <h4>FORMULÁRIO DE LEVANTAMENTO</h4>
+        <h5>SECRETARIA ESPECIAL DE GOVERNO</h5>
+        <h5>PREFEITURA MUNICIPAL DE PARAUAPEBAS</h5>
+    </div>
+  </header>
+    <table style="width:100%">
+        <tr>
+          <td><b>SECRETARIA: </b> {{ obj.secretaria }}</td>
+          <td><b>INSPECINADO EM: </b> {{ obj.data_de_cadastro }}</td>
+        </tr>
+        <tr>
+          <td><b>DEPARTAMENTO</b> {{ obj.departamento}}</td>
+           <td><b>RESPONSÁVEL</b> {{ obj.responsavel}}</td>
+        </tr>
+        <tr>
+          <td><b>ENDEREÇO:</b> {{obj.endereco}}</td>
+        </tr>
+        </table>
+
+        {% for pc in obj.computador_set.all %}
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DO PC</th> 
+        <tr>
+          <td><b>TIPO DE AQUISIÇÃO:</b> {{pc.aquisicao_equipamento}}</td>
+          <td><b>PATRIMÔNIO:</b> {{pc.patrimonio_pc}}</td>
+        </tr>
+        <tr>
+          <td><b>PROCESSADOR:</b> {{pc.processador}}</td>
+          <td><b>HDD/SSD:</b> {{pc.hdd_ssd}}</td>
+          <td><b>RAM:</b> {{pc.memoria_ram}}</td>
+          <td><b>VÍDEO:</b> {{pc.placa_grafica}}</td>
+        </tr>
+        {% endfor %}
+
+
+        {% for monitor in obj.monitor_set.all %} 
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DO MONITOR</th> 
+        <tr>
+          <td><b>TIPO DE AQUISIÇÃO:</b> {{monitor.aquisicao_equipamento}}</td>
+          <td><b>PATRIMÔNIO:</b> {{monitor.patrimonio_monitor}}</td>
+        </tr>
+        <tr>
+          <td><b>TAMANHO:</b> {{monitor.tamanho}}</td>
+        </tr>
+        {% endfor %}
+
+
+        {% for print in obj.impressora_set.all %} 
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DA IMPRESSORA</th> 
+        <tr>
+          <td><b>TIPO DE AQUISIÇÃO:</b> {{print.aquisicao_equipamento}}</td>
+          <td><b>PATRIMÔNIO:</b> {{print.patrimonio_impressora}}</td>
+        </tr>
+        <tr>
+          <td><b>POSSUI FAX?:</b> {{print.impressora_multi_fax}}</td>
+          <td><b>POSSUI SCANNER?:</b> {{print.impressora_multi_scanner}}</td>
+          <td><b>MARCA:</b> {{print.impressora_marca}}</td>
+          <td><b>TIPO:</b> {{print.impressora_tipo}}</td>
+          <td><b>IMPRESSÃO:</b> {{print.impressora_impressao}}</td>
+        </tr>
+        {% endfor %}
+        
+
+        {% for nbk in obj.nobreak_set.all %} 
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DO NOBREAK</th> 
+        <tr>
+          <td><b>TIPO DE AQUISIÇÃO:</b> {{nbk.aquisicao_equipamento}}</td>
+          <td><b>PATRIMÔNIO:</b> {{nbk.patrimonio_nobreak}}</td>
+        </tr>
+        <tr>
+          <td><b>TENSÃO:</b> {{nbk.nobreak}}</td>
+        </tr>
+        {% endfor %}
+
+        
+        {% for so in obj.softwareos_set.all %} 
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DO SISTEMA OPERACIONAL</th> 
+        <tr>
+          <td><b>SO:</b> {{so.sistema_operacional}}</td>
+        </tr>
+        {% endfor %}
+
+
+        {% for admso in obj.softwareoutro_set.all %} 
+        <table style="width:100%">
+          <th colspan="2"># DESCRIÇÃO DE OUTROS SO</th> 
+        <tr>
+          <td><b>SOFTWARE GRATUITOS:</b> {{admso.software_gratuito}}</td>
+          <td><b>SOFTWARES LICENCIADOS:</b> {{admso.software_licenciado}}</td>
+          <td><b>Nº DA LICENÇA:</b> {{admso.licenca}}</td>
+          <td><b>SOFTWARES ADMINISTRATIVOS:</b> {{admso.software_adminstrativo}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <br/>
+
+
+  <pre>
+  
+  _____________________     ___________________________     _____/_____/2021
+        Responsável                   Técnico</pre>
+  </body>
+</html>
