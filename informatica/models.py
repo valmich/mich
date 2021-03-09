@@ -112,16 +112,6 @@ IMPRESSORA_AQUISICAO = (
 
     )
 
-# IMPRESSORA_MULTIFUNCIONAIS_FAX = (
-#         ("Com Fax", "Com Fax"),
-#         ("Sem Fax", "Sem Fax"),
-#     )
-
-# IMPRESSORA_MULTIFUNCIONAIS_SCANNER = (
-#         ("Com Scanner", "Com Scanner"),
-#         ("Sem Scanner", "Sem Scanner"),
-#     )
-
 IMPRESSORA_MARCAS= (
         ("Brother", "Brother"),
         ("Ricoh", "Ricoh"),
@@ -277,6 +267,7 @@ class Secretaria(models.Model):
     departamento = models.CharField('DEPARTAMENTO', max_length= 60, null=True, blank=True)
     endereco = models.CharField('ENDEREÇO', max_length= 60, null=True, blank=True)
     responsavel= models.CharField('RESPONSÁVEL', max_length= 60, null=True, blank=True)
+    demanda = models.TextField(_('OBSEVAÇÕES'), help_text='Demandas e outras observações.', max_length=300, null=True, blank=True)
 
     class Meta:
         verbose_name = _("Secretaria")

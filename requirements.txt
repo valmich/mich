@@ -5,6 +5,7 @@ Django==3.0.0
 django-import-export==2.5.0
 django-multiselectfield==0.1.12
 django-object-actions==3.0.1
+weasyprint
 django-crispy-forms
 et-xmlfile==1.0.1
 jdcal==1.4.1
