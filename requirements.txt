@@ -5,7 +5,7 @@ cffi==1.14.5
 cssselect2==0.4.1
 defusedxml==0.6.0
 diff-match-patch==20200713
-Django==3.0.0
+Django==3.0.7
 django-crispy-forms
 django-import-export==2.5.0
 django-multiselectfield==0.1.12
