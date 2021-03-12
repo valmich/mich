@@ -267,7 +267,11 @@ class Secretaria(models.Model):
     departamento = models.CharField('DEPARTAMENTO', max_length= 60, null=True, blank=True)
     endereco = models.CharField('ENDEREÇO', max_length= 60, null=True, blank=True)
     responsavel= models.CharField('RESPONSÁVEL', max_length= 60, null=True, blank=True)
+    demanda_quantidade_pc = models.IntegerField('DEMANDA DE PC', blank=True, null=True)
+    demanda_quantidade_impressora = models.IntegerField('DEMANDA DE IMPRESSORA', blank=True, null=True)
+    demanda_quantidade_nobreak = models.IntegerField('DEMANDA DE NOBREAK', blank=True, null=True)
     demanda = models.TextField(_('OBSEVAÇÕES'), help_text='Demandas e outras observações.', max_length=300, null=True, blank=True)
+
 
     class Meta:
         verbose_name = _("Secretaria")
